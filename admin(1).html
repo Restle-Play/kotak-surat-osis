@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Panel OSIS — Respon Aspirasi</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b2a6b;--blue:#0d4fd6;--line:#d6e0f5;--bg:#f3f7ff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:#14213d;min-height:100vh}
+.top{background:var(--navy);color:#fff;padding:18px 5vw;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.top h1{font-size:20px;font-weight:600}
+.top a{color:#cfe0ff;font-size:14px;text-decoration:none}
+.wrap{padding:24px 5vw 50px;max-width:1200px;margin:auto}
+.login{max-width:380px;margin:12vh auto;background:#fff;padding:32px;border-radius:20px;box-shadow:0 14px 36px rgba(13,60,160,.15)}
+.login h2{margin-bottom:6px;color:var(--navy)}
+.login p{font-size:14px;color:#6b7896;margin-bottom:18px}
+input,select{font:inherit;font-size:14px;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;outline:none;background:#fff}
+input:focus,select:focus{border-color:var(--blue)}
+.login input{width:100%;margin-bottom:14px}
+button{font:inherit;font-weight:600;font-size:14px;cursor:pointer;border:0;border-radius:10px;padding:11px 18px;background:var(--blue);color:#fff}
+button.sec{background:#e1ebff;color:var(--navy)}
+.login button{width:100%}
+.err{color:#b42318;font-size:13px;margin-top:10px}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
+.bar input{flex:1;min-width:200px}
+.stats{display:flex;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.stat{background:#fff;border-radius:14px;padding:14px 20px;box-shadow:0 6px 16px rgba(13,60,160,.07)}
+.stat b{display:block;font-size:24px;color:var(--navy)}
+.stat span{font-size:12px;color:#6b7896}
+.list{display:grid;gap:14px}
+.item{background:#fff;border-radius:16px;padding:18px 22px;box-shadow:0 6px 16px rgba(13,60,160,.07)}
+.item .h{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.tag{display:inline-block;background:#e1ebff;color:var(--navy);font-size:12px;font-weight:600;padding:4px 12px;border-radius:99px}
+.time{font-size:12px;color:#8793ad}
+.item h4{font-size:16px;margin-bottom:6px}
+.item p{font-size:14px;line-height:1.6;white-space:pre-wrap;color:#33415f}
+.who{margin-top:10px;font-size:13px;font-weight:600;color:var(--navy)}
+.who.anon{color:#8793ad;font-weight:500}
+.empty{text-align:center;color:#8793ad;padding:40px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="top"><h1>📮 Panel OSIS — Respon Aspirasi</h1><a href="index.html">← Ke halaman form</a></div>
+
+<div id="loginBox" class="login">
+  <h2>Khusus Pengurus OSIS</h2>
+  <p>Masukkan kunci akses untuk melihat aspirasi siswa.</p>
+  <input type="password" id="key" placeholder="Kunci akses">
+  <button id="loginBtn">Masuk</button>
+  <div id="loginErr" class="err"></div>
+</div>
+
+<div id="app" class="wrap hidden">
+  <div class="stats">
+    <div class="stat"><b id="sTotal">0</b><span>Total pesan</span></div>
+    <div class="stat"><b id="sNama">0</b><span>Dengan nama</span></div>
+    <div class="stat"><b id="sAnon">0</b><span>Anonim</span></div>
+  </div>
+  <div class="bar">
+    <input id="q" placeholder="Cari nama, kelas, atau isi pesan...">
+    <select id="fk"><option value="">Semua kategori</option></select>
+    <button class="sec" id="refresh">Muat ulang</button>
+    <button class="sec" id="csv">Unduh CSV</button>
+    <button class="sec" id="logout">Keluar</button>
+  </div>
+  <div id="list" class="list"></div>
+</div>
+
+<script src="config.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+let DATA = [];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+async function load(key){
+  const r = await fetch(`${CONFIG.API_URL}?action=list&key=${encodeURIComponent(key)}`);
+  const j = await r.json();
+  if (!j.ok) throw new Error(j.error || "Gagal");
+  return j.data;
+}
+async function enter(key){
+  DATA = await load(key);
+  sessionStorage.setItem("osis_key", key);
+  $("loginBox").classList.add("hidden"); $("app").classList.remove("hidden");
+  const kats = [...new Set(DATA.map(d => d.kategori))];
+  $("fk").innerHTML = '<option value="">Semua kategori</option>' + kats.map(k => `<option>${esc(k)}</option>`).join("");
+  render();
+}
+function render(){
+  const q = $("q").value.toLowerCase(), fk = $("fk").value;
+  const rows = DATA.filter(d =>
+    (!fk || d.kategori === fk) &&
+    (!q || [d.nama,d.kelas,d.judul,d.pesan,d.kategori].join(" ").toLowerCase().includes(q)));
+  const anonCount = DATA.filter(d => d.anonim === true || String(d.anonim) === "true").length;
+  $("sTotal").textContent = DATA.length;
+  $("sAnon").textContent = anonCount;
+  $("sNama").textContent = DATA.length - anonCount;
+  $("list").innerHTML = rows.length ? rows.map(d => {
+    const anon = !d.nama;
+    return `<div class="item">
+      <div class="h"><span class="tag">${esc(d.kategori)}</span><span class="time">${esc(d.waktu)}</span></div>
+      ${d.judul ? `<h4>${esc(d.judul)}</h4>` : ""}
+      <p>${esc(d.pesan)}</p>
+      <div class="who ${anon ? "anon" : ""}">${anon ? "👤 Anonim" : `👤 ${esc(d.nama)} — Kelas ${esc(d.kelas)}`}</div>
+    </div>`;
+  }).join("") : '<div class="empty">Belum ada pesan.</div>';
+}
+$("loginBtn").onclick = async () => {
+  $("loginErr").textContent = "";
+  try { await enter($("key").value); }
+  catch(e){ $("loginErr").textContent = (e.message || "").startsWith("Terlalu") ? e.message : "Kunci salah atau server tidak bisa dihubungi."; }
+};
+$("key").addEventListener("keydown", e => e.key === "Enter" && $("loginBtn").click());
+$("q").oninput = render; $("fk").onchange = render;
+$("refresh").onclick = async () => { DATA = await load(sessionStorage.getItem("osis_key")); render(); };
+$("logout").onclick = () => { sessionStorage.removeItem("osis_key"); location.reload(); };
+$("csv").onclick = () => {
+  const cols = ["waktu","kategori","nama","kelas","judul","pesan"];
+  const lines = [cols.join(",")].concat(DATA.map(d => cols.map(c => `"${String(d[c] ?? "").replace(/"/g,'""')}"`).join(",")));
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob(["\ufeff" + lines.join("\n")], {type:"text/csv"}));
+  a.download = "aspirasi-osis.csv"; a.click();
+};
+const saved = sessionStorage.getItem("osis_key");
+if (saved) enter(saved).catch(() => sessionStorage.removeItem("osis_key"));
+</script>
+</body>
+</html>

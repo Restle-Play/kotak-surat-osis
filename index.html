@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kotak Surat OSIS SMP Negeri 1 Wongsorejo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0b2a6b; --navy-d:#081f52; --blue:#0d4fd6; --blue-l:#e8f0ff;
+  --text:#14213d; --muted:#7b88a6; --line:#d6e0f5; --bg:#f3f7ff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;color:var(--text);background:var(--bg);min-height:100vh;display:flex;flex-direction:column}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;color:#fff;padding:0 0 130px;overflow:hidden;
+  background:var(--navy);
+}
+.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(2px);transform:scale(1.05)}
+.hero-bg.fallback{
+  background:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 40px,transparent 40px 80px),
+    linear-gradient(135deg,#123c93,#0a2866);
+  filter:none;
+}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,31,82,.86),rgba(11,42,107,.92));z-index:1}
+.hero::after{
+  content:"";position:absolute;left:0;right:0;bottom:-1px;height:90px;background:var(--bg);z-index:2;
+  border-radius:60% 40% 0 0 / 100% 100% 0 0;transform:scaleX(1.4) translateX(-8%);
+}
+nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 5vw;position:relative;z-index:3;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{height:64px;flex:0 0 auto;display:flex;align-items:center;justify-content:center}
+.logo img{display:block;height:100%;width:auto;max-width:none;filter:drop-shadow(0 3px 8px rgba(0,0,0,.4))}
+.logo.lingkaran{width:64px;border-radius:50%;overflow:hidden}
+.logo.lingkaran img{width:100%;object-fit:contain;background:#fff;border-radius:50%;padding:3px}
+.logo.kotak img{background:#fff;border-radius:10px;padding:3px}
+.logo .ph{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:12px;text-align:center;line-height:1.1;
+  background:radial-gradient(circle at 30% 25%,#ffd35a,#e0a100 70%);color:#7a1d10;border:3px solid #c8281f;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+.logo .ph.smp{background:radial-gradient(circle at 30% 25%,#5aa0ff,#1448b8 75%);color:#fff;border:3px solid #fff}
+.sep{width:1px;height:50px;background:rgba(255,255,255,.35)}
+.brand-text{font-weight:700;line-height:1.15}
+.brand-text b{display:block;font-size:24px;letter-spacing:1px;font-weight:700}
+.brand-text span{display:block;font-size:16px;font-weight:600;letter-spacing:.3px}
+.menu{display:flex;gap:6px;align-items:center}
+.menu a{color:#fff;text-decoration:none;font-weight:600;font-size:15px;padding:12px 22px;border-radius:14px;transition:.2s}
+.menu a:hover{background:rgba(255,255,255,.12)}
+.menu a.active{background:var(--blue);box-shadow:0 6px 18px rgba(13,79,214,.5)}
+
+.hero-body{position:relative;z-index:3;display:grid;grid-template-columns:1.15fr 1fr;gap:20px;padding:10px 5vw 0;align-items:center}
+.hero h1{font-size:clamp(34px,4.4vw,56px);font-weight:700;line-height:1.1;letter-spacing:-.5px;margin-bottom:22px}
+.hero p.sub{font-size:20px;line-height:1.45;margin-bottom:34px;max-width:480px}
+.badges{display:flex;gap:18px;align-items:center;flex-wrap:wrap;font-size:15px;font-weight:500}
+.badges .b{display:flex;align-items:center;gap:10px}
+.badges .ic{width:36px;height:36px;border-radius:50%;background:var(--blue);display:grid;place-items:center}
+.badges .ic svg{width:20px;height:20px;fill:#fff}
+.badges .bar{width:1px;height:20px;background:rgba(255,255,255,.4)}
+.art{display:flex;justify-content:center;align-items:flex-end}
+.art svg{width:100%;max-width:560px;height:auto;filter:drop-shadow(0 20px 30px rgba(0,0,0,.35))}
+
+/* ---------- KONTEN ---------- */
+main{flex:1;display:grid;grid-template-columns:1.25fr 1fr;gap:34px;padding:0 5vw 50px;margin-top:-50px;position:relative;z-index:5;align-items:start}
+.card-form{border-radius:22px;overflow:hidden;box-shadow:0 18px 40px rgba(13,60,160,.18);background:#fff}
+.card-head{background:var(--navy);color:#fff;display:flex;align-items:center;gap:16px;padding:18px 30px;font-size:22px;font-weight:600}
+.card-head svg{width:34px;height:34px;fill:#fff}
+form{padding:22px 34px 30px}
+label{display:block;font-weight:600;font-size:15px;margin:14px 0 7px}
+label small{font-weight:400;color:var(--muted)}
+.field{width:100%;font:inherit;font-size:15px;padding:13px 16px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--text);outline:none;transition:.2s}
+.field::placeholder{color:#a3aec7}
+.field:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(13,79,214,.12)}
+select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23123' stroke-width='2.5'%3E%3Cpath d='M2 5l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:44px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ta-wrap{position:relative}
+textarea.field{min-height:110px;resize:vertical;padding-bottom:30px}
+.count{position:absolute;right:14px;bottom:10px;font-size:13px;color:#6b7896}
+.check{display:flex;align-items:center;gap:12px;margin:18px 0 18px;font-size:15px;cursor:pointer;font-weight:400}
+.check input{width:20px;height:20px;accent-color:var(--blue)}
+.hidden{display:none!important}
+.btn{width:100%;border:0;cursor:pointer;font:inherit;font-weight:600;font-size:18px;color:#fff;padding:15px;border-radius:12px;
+  background:linear-gradient(180deg,#1260ee,#0a46c4);display:flex;align-items:center;justify-content:center;gap:12px;box-shadow:0 8px 20px rgba(13,79,214,.4);transition:.2s}
+.btn:hover{transform:translateY(-1px)}
+.btn:disabled{opacity:.7;cursor:wait;transform:none}
+.btn svg{width:24px;height:24px;fill:#fff}
+.msg{margin-top:14px;padding:12px 16px;border-radius:10px;font-size:14px;font-weight:500}
+.msg.ok{background:#e4f8ec;color:#11683a}
+.msg.err{background:#fde8e8;color:#9b1c1c}
+
+.side{display:flex;flex-direction:column;gap:22px;margin-top:50px}
+.card{background:#fff;border-radius:22px;padding:26px 30px;box-shadow:0 10px 30px rgba(13,60,160,.08)}
+.card h3{display:flex;align-items:center;gap:12px;font-size:20px;font-weight:600;margin-bottom:16px;color:var(--navy-d)}
+.card h3 span{font-size:30px}
+.card ul{list-style:none;display:grid;gap:12px;font-size:14.5px}
+.card li{display:flex;gap:12px;align-items:flex-start}
+.card li::before{content:"✔";color:var(--navy);font-size:13px;margin-top:2px}
+.privacy{background:#dfeaff;border-radius:16px;padding:20px;display:flex;gap:16px;margin-top:26px}
+.privacy .sh{flex:0 0 52px;height:52px;border-radius:50%;background:#c8dbff;display:grid;place-items:center}
+.privacy .sh svg{width:28px;height:28px;fill:var(--navy)}
+.privacy b{display:block;font-size:17px;color:var(--navy-d);margin-bottom:6px;font-weight:600}
+.privacy p{font-size:13px;line-height:1.55;color:#1d2f5c}
+.slogan{font-family:'Caveat',cursive;font-size:44px;line-height:1;color:var(--navy);text-align:right;transform:rotate(-6deg);margin:10px 10px 0 0;font-weight:700}
+
+.about{padding:0 5vw 40px}
+.about .card{max-width:900px;margin:auto}
+.about p{font-size:15px;line-height:1.7;color:#33415f}
+footer{background:var(--navy-d);color:#fff;padding:20px 5vw;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer .logo{height:52px}
+footer .logo.lingkaran{width:52px}
+footer .logo .ph{width:52px;height:52px;font-size:10px}
+footer .t b{display:block;font-size:14px;font-weight:600}
+footer .t span{font-size:13px;color:#c3d1f3}
+footer .r{font-size:13px;color:#d4def7}
+
+@media(max-width:960px){
+  .hero-body,main{grid-template-columns:1fr}
+  .art{order:-1;max-width:380px;margin:0 auto}
+  .menu a{padding:10px 14px;font-size:14px}
+  .side{margin-top:0}
+  .row{grid-template-columns:1fr}
+  form{padding:18px 20px 26px}
+  .hero{padding-bottom:90px}
+}
+</style>
+</head>
+<body id="top">
+
+<header class="hero">
+  <div class="hero-bg fallback" id="heroBg"></div>
+  <nav>
+    <div class="brand" id="brand"></div>
+    <div class="menu">
+      <a href="#top">Beranda</a>
+      <a href="#form" class="active">Kirim Aspirasi</a>
+      <a href="admin.html" title="Khusus pengurus OSIS">Lihat Respon</a>
+      <a href="#tentang">Tentang</a>
+    </div>
+  </nav>
+
+  <div class="hero-body">
+    <div>
+      <h1>Kotak Surat OSIS<br>SMP Negeri 1 Wongsorejo</h1>
+      <p class="sub">Sampaikan ide, kritik, saran, dan aspirasi untuk sekolah kita yang lebih baik.</p>
+      <div class="badges">
+        <div class="b"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></span>Anonim atau dengan nama</div>
+        <span class="bar"></span>
+        <div class="b"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z"/></svg></span>Aman &amp; Privat</div>
+        <span class="bar"></span>
+        <div class="b"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg></span>Ditangani OSIS</div>
+      </div>
+    </div>
+
+    <div class="art">
+      <svg viewBox="0 0 560 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M30 150c10-40 50-60 70-30s-30 40-40 10" stroke="#9fc0ff" stroke-width="2" stroke-dasharray="6 6"/>
+        <path d="M60 110l150-60-45 100-35-30-25 30-10-35z" fill="#eaf2ff"/>
+        <path d="M60 110l105 40-35-30z" fill="#b9d0ff"/>
+        <g transform="rotate(-10 130 330)">
+          <rect x="60" y="260" width="130" height="95" rx="6" fill="#d9e6ff"/>
+          <path d="M60 266l65 45 65-45" stroke="#7aa2ee" stroke-width="3"/>
+        </g>
+        <path d="M185 70h160l40 25v270H205z" fill="#1546b8"/>
+        <path d="M345 70l60-18v300l-20 13V95z" fill="#0c3490"/>
+        <path d="M185 70l60-20h160l-60 20z" fill="#2c68e8"/>
+        <rect x="205" y="80" width="140" height="22" rx="4" fill="#06153f"/>
+        <rect x="205" y="115" width="140" height="250" fill="#1a52cf"/>
+        <circle cx="275" cy="160" r="30" fill="#f4c23d" stroke="#c8281f" stroke-width="4"/>
+        <text x="275" y="166" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="14" fill="#7a1d10">OSIS</text>
+        <text x="272" y="235" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="24" fill="#fff" transform="rotate(-10 272 235)">Suaramu</text>
+        <text x="272" y="262" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="24" fill="#fff" transform="rotate(-10 272 262)">Untuk Sekolah</text>
+        <text x="272" y="289" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="24" fill="#fff" transform="rotate(-10 272 289)">Yang Lebih Baik</text>
+        <g transform="rotate(8 410 200)">
+          <rect x="380" y="130" width="85" height="110" rx="6" fill="#f2f6ff"/>
+          <path d="M395 160h55M395 178h55M395 196h40" stroke="#b8c7e6" stroke-width="4" stroke-linecap="round"/>
+        </g>
+        <g transform="rotate(10 440 310)">
+          <rect x="385" y="270" width="140" height="95" rx="6" fill="#eaf1ff"/>
+          <path d="M385 276l70 50 70-50" stroke="#9bb8ee" stroke-width="3"/>
+          <circle cx="455" cy="335" r="16" fill="#1b55d3" stroke="#fff" stroke-width="3"/>
+        </g>
+        <ellipse cx="500" cy="60" rx="38" ry="28" stroke="#fff" stroke-width="3" fill="#0f3a9c" fill-opacity=".5"/>
+        <path d="M485 52h30M485 62h22" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="505" cy="140" r="18" stroke="#fff" stroke-width="3"/>
+        <path d="M498 162h14M500 168h10M505 105v-8M485 112l-6-5M525 112l6-5" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<main id="form">
+  <section class="card-form">
+    <div class="card-head">
+      <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+      Kirim Aspirasi
+    </div>
+    <form id="aspForm" novalidate>
+      <label for="kategori">Kategori <span style="color:#c0392b">*</span></label>
+      <select id="kategori" class="field" required><option value="">Pilih kategori...</option></select>
+
+      <div id="identitas" class="row">
+        <div>
+          <label for="nama">Nama <small>(lengkap)</small></label>
+          <input id="nama" class="field" type="text" maxlength="60" placeholder="Contoh: Budi Santoso" autocomplete="name">
+        </div>
+        <div>
+          <label for="kelas">Kelas</label>
+          <select id="kelas" class="field"><option value="">Pilih kelas...</option></select>
+        </div>
+      </div>
+
+      <label for="judul">Judul (opsional)</label>
+      <input id="judul" class="field" type="text" maxlength="100" placeholder="Contoh: Saran untuk fasilitas kelas">
+
+      <label for="pesan">Isi Pesan *</label>
+      <div class="ta-wrap">
+        <textarea id="pesan" class="field" placeholder="Tulis aspirasi, kritik, saran, atau ide kamu di sini..." required></textarea>
+        <span class="count"><span id="cnt">0</span> / <span id="max">500</span></span>
+      </div>
+
+      <input type="text" id="website" class="hidden" tabindex="-1" autocomplete="off">
+
+      <label class="check"><input type="checkbox" id="anon"> Kirim sebagai anonim (nama tidak akan ditampilkan)</label>
+
+      <button class="btn" id="btn" type="submit">
+        <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+        <span id="btnTxt">Kirim Pesan</span>
+      </button>
+      <div id="notif" class="msg hidden"></div>
+    </form>
+  </section>
+
+  <aside class="side">
+    <div class="card">
+      <h3><span>💡</span> Contoh Aspirasi</h3>
+      <ul>
+        <li>“Saran untuk kebersihan kelas dan lingkungan sekolah.”</li>
+        <li>“Ide kegiatan OSIS yang menarik.”</li>
+        <li>“Kritik tentang fasilitas sekolah.”</li>
+        <li>“Laporan masalah yang perlu diperhatikan.”</li>
+      </ul>
+      <div class="privacy">
+        <div class="sh"><svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5zm-1.2 13.5l6-6-1.4-1.4-4.6 4.6-2-2-1.4 1.4z"/></svg></div>
+        <div>
+          <b>Privasi dan Keamanan</b>
+          <p>Pesan yang kamu kirim hanya dapat diakses oleh pengurus OSIS yang berwenang. Identitasmu akan dijaga kerahasiaannya.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slogan">Suaramu,<br>Perubahan Kita.</div>
+  </aside>
+</main>
+
+<section class="about" id="tentang">
+  <div class="card">
+    <h3><span>📮</span> Tentang Kotak Surat OSIS</h3>
+    <p>Kotak Surat Digital ini dibuat agar semua siswa bisa menyampaikan ide, kritik, saran, dan laporan dengan mudah dan aman. Semua pesan masuk ke pengurus OSIS SMP Negeri 1 Wongsorejo untuk dibaca, dibahas, dan ditindaklanjuti. Kamu boleh mengirim dengan nama atau secara anonim.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="brand" id="footBrand"></div>
+  <div class="r">Kotak Surat Digital OSIS &nbsp;|&nbsp; Versi 1.0</div>
+</footer>
+
+<script src="config.js"></script>
+<script>
+const C = window.CONFIG;
+const $ = id => document.getElementById(id);
+
+/* ---------- Logo: gambar kalau ada, kalau tidak pakai teks ---------- */
+function makeLogo(src, teks, cls){
+  const d = document.createElement("div"); d.className = "logo " + (C.LOGO_LATAR || "lingkaran");
+  const fallback = () => { d.innerHTML = ""; const p = document.createElement("div"); p.className = "ph " + cls; p.textContent = teks; d.append(p); };
+  if (src){
+    const base = src.replace(/\.(png|jpe?g|webp|gif|svg)$/i, "");
+    const list = src.startsWith("data:") ? [src] : [src, ...["png","jpg","jpeg","webp","PNG","JPG","JPEG"].map(x => base + "." + x)];
+    const i = new Image(); i.alt = teks; let n = 0;
+    i.onerror = () => { n++; if (n < list.length) i.src = list[n]; else fallback(); };
+    i.src = list[0]; d.append(i);
+  } else fallback();
+  return d;
+}
+function sep(){ const s = document.createElement("div"); s.className = "sep"; return s; }
+
+function buildBrand(el, header){
+  const L = C.LOGO;
+  el.append(makeLogo(L.osis, L.teksOsis, "osis"), sep(), makeLogo(L.smp, L.teksSmp, "smp"), sep());
+  const t = document.createElement("div");
+  if (header){
+    t.className = "brand-text";
+    t.innerHTML = `<b>${C.NAMA_ORGANISASI}</b><span>${C.NAMA_SEKOLAH}</span><span>${C.NAMA_DAERAH}</span>`;
+  } else {
+    t.className = "t";
+    t.innerHTML = `<b>${C.NAMA_ORGANISASI} ${C.NAMA_SEKOLAH} ${C.NAMA_DAERAH}</b><span>Bersama · Berkarakter · Berprestasi</span>`;
+  }
+  el.append(t);
+}
+buildBrand($("brand"), true);
+buildBrand($("footBrand"), false);
+
+/* ---------- Foto latar header ---------- */
+if (C.BG_IMAGE){
+  const im = new Image();
+  im.onload = () => { const b = $("heroBg"); b.style.backgroundImage = `url("${C.BG_IMAGE}")`; b.classList.remove("fallback"); };
+  im.src = C.BG_IMAGE;
+}
+
+/* ---------- Isi pilihan ---------- */
+C.KATEGORI.forEach(k => $("kategori").add(new Option(k, k)));
+function daftarKelas(){
+  if (C.KELAS_MANUAL && C.KELAS_MANUAL.length) return C.KELAS_MANUAL;
+  const out = [];
+  Object.entries(C.TINGKAT).forEach(([t, akhir]) => {
+    for (let c = 65; c <= akhir.toUpperCase().charCodeAt(0); c++) out.push(t + String.fromCharCode(c));
+  });
+  return out;
+}
+daftarKelas().forEach(k => $("kelas").add(new Option(k, k)));
+
+$("max").textContent = C.MAX_PESAN;
+$("pesan").maxLength = C.MAX_PESAN;
+$("pesan").addEventListener("input", e => $("cnt").textContent = e.target.value.length);
+$("anon").addEventListener("change", e => $("identitas").classList.toggle("hidden", e.target.checked));
+
+/* ---------- Kirim ---------- */
+function show(type, text){
+  const n = $("notif"); n.className = "msg " + type; n.textContent = text;
+}
+$("aspForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  if ($("website").value) return;
+  const anon = $("anon").checked;
+  const data = {
+    kategori: $("kategori").value,
+    nama: anon ? "" : $("nama").value.trim(),
+    kelas: anon ? "" : $("kelas").value,
+    judul: $("judul").value.trim(),
+    pesan: $("pesan").value.trim(),
+    anonim: anon
+  };
+  if (!data.kategori) return show("err", "Pilih kategori dulu ya.");
+  if (!anon && !data.nama) return show("err", "Isi nama, atau centang kirim sebagai anonim.");
+  if (!anon && !data.kelas) return show("err", "Pilih kelas kamu dulu ya.");
+  if (data.pesan.length < 10) return show("err", "Isi pesan minimal 10 karakter.");
+  if (C.API_URL.startsWith("PASTE")) return show("err", "Admin belum mengisi API_URL di config.js.");
+
+  $("btn").disabled = true; $("btnTxt").textContent = "Mengirim...";
+  try{
+    await fetch(C.API_URL, {
+      method: "POST", mode: "no-cors",
+      headers: {"Content-Type": "text/plain;charset=utf-8"},
+      body: JSON.stringify(data)
+    });
+    show("ok", "Terima kasih! Aspirasimu sudah terkirim ke OSIS. 🎉");
+    $("aspForm").reset(); $("cnt").textContent = 0; $("identitas").classList.remove("hidden");
+  }catch(err){
+    show("err", "Gagal mengirim. Cek koneksi internet lalu coba lagi.");
+  }finally{
+    $("btn").disabled = false; $("btnTxt").textContent = "Kirim Pesan";
+  }
+});
+</script>
+</body>
+</html>
