@@ -4,7 +4,7 @@
 window.CONFIG = {
 
   // 1) URL Web App dari Google Apps Script (lihat README.md langkah 3)
-  API_URL: "PASTE_URL_WEB_APP_DI_SINI",
+  API_URL: "https://script.google.com/macros/s/AKfycbzJFwvqjCJgCwrnC2TUgFYtmG899R1mHd9r_bOnu4MwYBQwarLtBWlf2650GyLDOF86Qw/execs",
 
   // 2) Teks header & footer
   NAMA_ORGANISASI: "OSIS",
