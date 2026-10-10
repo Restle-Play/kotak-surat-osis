@@ -343,7 +343,8 @@ function norm(s){
     return w.replace(/[0134578@$!|+]/g, c => LEET[c]);
   });
 }
-const siapKata = (arr = []) => arr.map(w => kolaps(norm(w).replace(/[^a-z]/g, ""))).filter(w => w.length >= 3);
+// kata pendek yang kalau dikolaps jadi <3 huruf (mis. "ppk","mmk") dicocokkan apa adanya supaya tidak salah blokir
+const siapKata = (arr = []) => arr.map(w => { const h = norm(w).replace(/[^a-z]/g, ""); const k = kolaps(h); return k.length >= 3 ? k : h; }).filter(w => w.length >= 3);
 const siapFrasa = (arr = []) => arr.map(w => norm(w).split(/[^a-z]+/).filter(Boolean).map(kolaps).join(" ")).filter(w => w.replace(/ /g, "").length >= 5);
 const DAFTAR = {
   kasar:     { kata: siapKata(F.kasarKata),     frasa: siapFrasa(F.kasarFrasa) },
@@ -362,7 +363,7 @@ function ambilToken(teks){
 function cocokKata(tok, daftar){
   const t = kolaps(tok);
   return daftar.some(w => {
-    if (t === w) return true;
+    if (t === w || tok === w) return true;
     if (!t.startsWith(w)) return false;
     const sisa = t.slice(w.length);
     return SUFIKS_ID.has(sisa) || (w.length >= 4 && SUFIKS_EN.has(sisa));
