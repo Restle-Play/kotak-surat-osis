@@ -62,7 +62,8 @@ window.CONFIG = {
       "jancuk","jancok","dancok","dancuk","diancuk","diancok","jancik","bajingan","brengsek","keparat","kampret",
       "tolol","goblok","goblog","bego","idiot","bodoh","dungu","kunyuk","bedebah","jahanam","laknat","bejat",
       "bangsat","bangsad","kontol","kntl","memek","pepek","ngentot","ngewe","jembut","lonte","pelacur","jablay",
-      "perek","sundal","bispak","babi","pukimak","puki","kimak","lancau","cibai","banci","bencong","colmek",
+      "perek","sundal","bispak","babi","pukimak","puki","kimak","lancau","cibai","banci","bencong","colmek","clmk","ngentu",
+      "gblk","mmk","ppk","ngwe","tobrut","tbrt","jnck","lantam","lantham"
       // Inggris
       "fuck","fucker","fucking","fuk","fck","shit","shitty","bullshit","bitch","bastard","asshole","arsehole",
       "dick","dickhead","cock","cocksucker","pussy","cunt","whore","slut","twat","wanker","douchebag",
