@@ -4,7 +4,7 @@
 window.CONFIG = {
 
   // 1) URL Web App dari Google Apps Script (lihat README.md langkah 3)
-  API_URL: "https://script.google.com/macros/s/AKfycbzQMXNKVXLutfhMVpB9Ysbs-Rt29YjwSxbfKB52C1kW7hS74y7jTdzR01YOUz05cTPz/exec",
+  API_URL: "https://script.google.com/macros/s/AKfycbzJFwvqjCJgCwrnC2TUgFYtmG899R1mHd9r_bOnu4MwYBQwarLtBWlf2650GyLDOF86Qw/execs",
 
   // 2) Teks header & footer
   NAMA_ORGANISASI: "OSIS",
@@ -63,8 +63,6 @@ window.CONFIG = {
       "tolol","goblok","goblog","bego","idiot","bodoh","dungu","kunyuk","bedebah","jahanam","laknat","bejat",
       "bangsat","bangsad","kontol","kntl","memek","pepek","ngentot","ngewe","jembut","lonte","pelacur","jablay",
       "perek","sundal","bispak","babi","pukimak","puki","kimak","lancau","cibai","banci","bencong","colmek",
-      // tambahan (singkatan & slang)
-      "clmk","ngentu","gblk","mmk","ppk","ngwe","tobrut","tbrt","jnck","lantam","lantham",
       // Inggris
       "fuck","fucker","fucking","fuk","fck","shit","shitty","bullshit","bitch","bastard","asshole","arsehole",
       "dick","dickhead","cock","cocksucker","pussy","cunt","whore","slut","twat","wanker","douchebag",
