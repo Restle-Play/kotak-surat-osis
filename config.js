@@ -98,7 +98,7 @@ window.CONFIG = {
       "madarchod","behenchod","bhenchod","chutiya","bhosdike","haramzada","scheisse","arschloch","hurensohn","wichser",
       "kurwa","blyat","pizdec","putangina","caonima","vaffanculo","cabron","pendejo","gilipollas","hijueputa",
       "putain","enculer","connard","orospu","siktir","sharmouta","klootzak","godverdomme","chikusho","gaesaekki",
-      "byeongsin","ssibal",
+      "byeongsin","ssibal","colmek","clmk","ngentu","gblk","mmk","ppk","ngwe","tobrut","tbrt","jnck","lantam","lantham"
       // frasa lebih dari satu kata
       "putang ina","cao ni ma","ni ma si le","hijo de puta","filho da puta","fils de pute","va te faire foutre",
       "suka blyat","ibn el sharmouta","dit me","du ma","son of a bitch"
