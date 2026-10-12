@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kotak Surat OSIS SMP Negeri 1 Wongsorejo</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📮%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
@@ -16,10 +17,7 @@ html{scroll-behavior:smooth}
 body{font-family:'Poppins',sans-serif;color:var(--text);background:var(--bg);min-height:100vh;display:flex;flex-direction:column}
 
 /* ---------- HERO ---------- */
-.hero{
-  position:relative;color:#fff;padding:0 0 130px;overflow:hidden;
-  background:var(--navy);
-}
+.hero{position:relative;color:#fff;padding:0 0 130px;overflow:hidden;background:var(--navy)}
 .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(2px);transform:scale(1.05)}
 .hero-bg.fallback{
   background:
@@ -67,9 +65,10 @@ main{flex:1;display:grid;grid-template-columns:1.25fr 1fr;gap:34px;padding:0 5vw
 .card-form{border-radius:22px;overflow:hidden;box-shadow:0 18px 40px rgba(13,60,160,.18);background:#fff}
 .card-head{background:var(--navy);color:#fff;display:flex;align-items:center;gap:16px;padding:18px 30px;font-size:22px;font-weight:600}
 .card-head svg{width:34px;height:34px;fill:#fff}
-form{padding:22px 34px 30px}
+form{padding:18px 34px 30px}
 label{display:block;font-weight:600;font-size:15px;margin:14px 0 7px}
 label small{font-weight:400;color:var(--muted)}
+.req{color:#c0392b}
 .field{width:100%;font:inherit;font-size:15px;padding:13px 16px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--text);outline:none;transition:.2s}
 .field::placeholder{color:#a3aec7}
 .field:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(13,79,214,.12)}
@@ -82,12 +81,19 @@ textarea.field{min-height:110px;resize:vertical;padding-bottom:30px}
 .check input{width:20px;height:20px;accent-color:var(--blue)}
 .hidden{display:none!important}
 .hint{margin-top:8px;font-size:13px;color:#b42318;font-weight:500;line-height:1.4}
+
+/* pilihan mode: aspirasi / kritik guru */
+.mode{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#eef3ff;padding:6px;border-radius:14px;margin:4px 0 2px}
+.mode button{font:inherit;font-weight:600;font-size:14px;border:0;background:transparent;color:#42557f;padding:11px 8px;border-radius:10px;cursor:pointer;transition:.2s}
+.mode button.on{background:var(--blue);color:#fff;box-shadow:0 6px 14px rgba(13,79,214,.35)}
+.note{background:#fff7e6;border:1px solid #f4dca6;color:#7a5200;border-radius:10px;padding:10px 14px;font-size:13px;line-height:1.5;margin-top:14px}
+
 .btn{width:100%;border:0;cursor:pointer;font:inherit;font-weight:600;font-size:18px;color:#fff;padding:15px;border-radius:12px;
   background:linear-gradient(180deg,#1260ee,#0a46c4);display:flex;align-items:center;justify-content:center;gap:12px;box-shadow:0 8px 20px rgba(13,79,214,.4);transition:.2s}
 .btn:hover{transform:translateY(-1px)}
 .btn:disabled{opacity:.7;cursor:wait;transform:none}
 .btn svg{width:24px;height:24px;fill:#fff}
-.msg{margin-top:14px;padding:12px 16px;border-radius:10px;font-size:14px;font-weight:500}
+.msg{margin-top:14px;padding:12px 16px;border-radius:10px;font-size:14px;font-weight:500;line-height:1.5}
 .msg.ok{background:#e4f8ec;color:#11683a}
 .msg.err{background:#fde8e8;color:#9b1c1c}
 
@@ -122,7 +128,8 @@ footer .r{font-size:13px;color:#d4def7}
   .menu a{padding:10px 14px;font-size:14px}
   .side{margin-top:0}
   .row{grid-template-columns:1fr}
-  form{padding:18px 20px 26px}
+  form{padding:14px 20px 26px}
+  .card-head{padding:16px 20px;font-size:20px}
   .hero{padding-bottom:90px}
 }
 </style>
@@ -195,11 +202,38 @@ footer .r{font-size:13px;color:#d4def7}
   <section class="card-form">
     <div class="card-head">
       <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
-      Kirim Aspirasi
+      <span id="headTxt">Kirim Aspirasi</span>
     </div>
+
     <form id="aspForm" novalidate>
-      <label for="kategori">Kategori <span style="color:#c0392b">*</span></label>
-      <select id="kategori" class="field" required><option value="">Pilih kategori...</option></select>
+      <!-- pilih jenis pesan -->
+      <div class="mode" id="mode">
+        <button type="button" class="on" data-mode="aspirasi">📮 Aspirasi &amp; Saran</button>
+        <button type="button" data-mode="guru">🎓 Kritik untuk Guru</button>
+      </div>
+
+      <!-- khusus mode aspirasi -->
+      <div id="boxKategori">
+        <label for="kategori">Kategori <span class="req">*</span></label>
+        <select id="kategori" class="field"><option value="">Pilih kategori...</option></select>
+      </div>
+
+      <!-- khusus mode kritik guru -->
+      <div id="boxGuru" class="hidden">
+        <div class="note">Sampaikan dengan <b>sopan dan membangun</b> ya. Kritik untuk guru hanya dibaca oleh pengurus OSIS yang berwenang.</div>
+        <div class="row">
+          <div>
+            <label for="guru">Nama Guru <span class="req">*</span></label>
+            <input id="guru" class="field" type="text" list="listGuru" maxlength="60" placeholder="Contoh: Bu Rina" autocomplete="off">
+            <datalist id="listGuru"></datalist>
+          </div>
+          <div>
+            <label for="mapel">Mata Pelajaran <small>(opsional)</small></label>
+            <input id="mapel" class="field" type="text" list="listMapel" maxlength="60" placeholder="Contoh: Matematika" autocomplete="off">
+            <datalist id="listMapel"></datalist>
+          </div>
+        </div>
+      </div>
 
       <div id="identitas" class="row">
         <div>
@@ -212,10 +246,12 @@ footer .r{font-size:13px;color:#d4def7}
         </div>
       </div>
 
-      <label for="judul">Judul (opsional)</label>
-      <input id="judul" class="field" type="text" maxlength="100" placeholder="Contoh: Saran untuk fasilitas kelas">
+      <div id="boxJudul">
+        <label for="judul">Judul (opsional)</label>
+        <input id="judul" class="field" type="text" maxlength="100" placeholder="Contoh: Saran untuk fasilitas kelas">
+      </div>
 
-      <label for="pesan">Isi Pesan *</label>
+      <label for="pesan" id="lblPesan">Isi Pesan *</label>
       <div class="ta-wrap">
         <textarea id="pesan" class="field" placeholder="Tulis aspirasi, kritik, saran, atau ide kamu di sini..." required></textarea>
         <span class="count"><span id="cnt">0</span> / <span id="max">500</span></span>
@@ -237,13 +273,8 @@ footer .r{font-size:13px;color:#d4def7}
 
   <aside class="side">
     <div class="card">
-      <h3><span>💡</span> Contoh Aspirasi</h3>
-      <ul>
-        <li>“Saran untuk kebersihan kelas dan lingkungan sekolah.”</li>
-        <li>“Ide kegiatan OSIS yang menarik.”</li>
-        <li>“Kritik tentang fasilitas sekolah.”</li>
-        <li>“Laporan masalah yang perlu diperhatikan.”</li>
-      </ul>
+      <h3><span>💡</span><strong id="contohJudul" style="font-weight:600">Contoh Aspirasi</strong></h3>
+      <ul id="contohList"></ul>
       <div class="privacy">
         <div class="sh"><svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5zm-1.2 13.5l6-6-1.4-1.4-4.6 4.6-2-2-1.4 1.4z"/></svg></div>
         <div>
@@ -259,23 +290,27 @@ footer .r{font-size:13px;color:#d4def7}
 <section class="about" id="tentang">
   <div class="card">
     <h3><span>📮</span> Tentang Kotak Surat OSIS</h3>
-    <p>Kotak Surat Digital ini dibuat agar semua siswa bisa menyampaikan ide, kritik, saran, dan laporan dengan mudah dan aman. Semua pesan masuk ke pengurus OSIS SMP Negeri 1 Wongsorejo untuk dibaca, dibahas, dan ditindaklanjuti. Kamu boleh mengirim dengan nama atau secara anonim.</p>
+    <p>Kotak Surat Digital ini dibuat agar semua siswa bisa menyampaikan ide, kritik, saran, dan laporan dengan mudah dan aman, termasuk kritik dan saran untuk guru. Semua pesan masuk ke pengurus OSIS SMP Negeri 1 Wongsorejo untuk dibaca, dibahas, dan ditindaklanjuti. Kamu boleh mengirim dengan nama atau secara anonim.</p>
   </div>
 </section>
 
 <footer>
   <div class="brand" id="footBrand"></div>
-  <div class="r">Kotak Surat Digital OSIS &nbsp;|&nbsp; Versi 1.0</div>
+  <div class="r">Kotak Surat Digital OSIS &nbsp;|&nbsp; Versi 2.0</div>
 </footer>
 
+<script src="api.js"></script>
+<script src="logo.js"></script>
 <script src="config.js"></script>
 <script>
-const C = window.CONFIG;
+const C = window.CONFIG || {};
 const $ = id => document.getElementById(id);
+const API = window.API_URL || "";
+const LD = window.LOGO_DATA || {};
 
 /* ---------- Logo: gambar kalau ada, kalau tidak pakai teks ---------- */
 function makeLogo(src, teks, cls){
-  const d = document.createElement("div"); d.className = "logo " + (C.LOGO_LATAR || "lingkaran");
+  const d = document.createElement("div"); d.className = "logo " + (C.LOGO_LATAR || "tanpa");
   const fallback = () => { d.innerHTML = ""; const p = document.createElement("div"); p.className = "ph " + cls; p.textContent = teks; d.append(p); };
   if (src){
     const base = src.replace(/\.(png|jpe?g|webp|gif|svg)$/i, "");
@@ -287,10 +322,9 @@ function makeLogo(src, teks, cls){
   return d;
 }
 function sep(){ const s = document.createElement("div"); s.className = "sep"; return s; }
-
 function buildBrand(el, header){
-  const L = C.LOGO;
-  el.append(makeLogo(L.osis, L.teksOsis, "osis"), sep(), makeLogo(L.smp, L.teksSmp, "smp"), sep());
+  const L = C.LOGO || {};
+  el.append(makeLogo(L.osis || LD.osis, L.teksOsis || "OSIS", "osis"), sep(), makeLogo(L.smp || LD.smp, L.teksSmp || "SMPN 1", "smp"), sep());
   const t = document.createElement("div");
   if (header){
     t.className = "brand-text";
@@ -312,21 +346,60 @@ if (C.BG_IMAGE){
 }
 
 /* ---------- Isi pilihan ---------- */
-C.KATEGORI.forEach(k => $("kategori").add(new Option(k, k)));
+(C.KATEGORI || []).forEach(k => $("kategori").add(new Option(k, k)));
 function daftarKelas(){
   if (C.KELAS_MANUAL && C.KELAS_MANUAL.length) return C.KELAS_MANUAL;
   const out = [];
-  Object.entries(C.TINGKAT).forEach(([t, akhir]) => {
+  Object.entries(C.TINGKAT || {}).forEach(([t, akhir]) => {
     for (let c = 65; c <= akhir.toUpperCase().charCodeAt(0); c++) out.push(t + String.fromCharCode(c));
   });
   return out;
 }
 daftarKelas().forEach(k => $("kelas").add(new Option(k, k)));
+(C.DAFTAR_GURU || []).forEach(g => $("listGuru").append(new Option(g)));
+(C.DAFTAR_MAPEL || []).forEach(m => $("listMapel").append(new Option(m)));
 
-$("max").textContent = C.MAX_PESAN;
-$("pesan").maxLength = C.MAX_PESAN;
+$("max").textContent = C.MAX_PESAN || 500;
+$("pesan").maxLength = C.MAX_PESAN || 500;
 $("pesan").addEventListener("input", e => $("cnt").textContent = e.target.value.length);
 $("anon").addEventListener("change", e => $("identitas").classList.toggle("hidden", e.target.checked));
+
+/* ---------- Mode: Aspirasi / Kritik untuk Guru ---------- */
+const MODE = {
+  aspirasi: {
+    kartu: "Kirim Aspirasi",
+    label: "Isi Pesan *",
+    ph: "Tulis aspirasi, kritik, saran, atau ide kamu di sini...",
+    contoh: "Contoh Aspirasi",
+    daftar: ["Saran untuk kebersihan kelas dan lingkungan sekolah.", "Ide kegiatan OSIS yang menarik.", "Kritik tentang fasilitas sekolah.", "Laporan masalah yang perlu diperhatikan."],
+    sukses: "Terima kasih! Aspirasimu sudah terkirim ke OSIS. 🎉"
+  },
+  guru: {
+    kartu: "Kritik untuk Guru",
+    label: "Isi Kritik & Saran untuk Guru *",
+    ph: "Tulis kritik atau saran kamu untuk guru dengan sopan dan jelas...",
+    contoh: "Contoh Kritik & Saran Guru",
+    daftar: ["Mohon penjelasan materi dibuat lebih pelan dan jelas.", "Tugas sering menumpuk, mohon diberi waktu pengerjaan yang cukup.", "Mohon penilaian dan perhatian diberikan lebih adil ke semua siswa.", "Terima kasih, cara mengajarnya seru dan mudah dipahami!"],
+    sukses: "Terima kasih! Kritik dan sarannya sudah terkirim ke OSIS. 🙏"
+  }
+};
+let mode = "aspirasi";
+function setMode(m){
+  mode = m;
+  const T = MODE[m];
+  document.querySelectorAll("#mode button").forEach(b => b.classList.toggle("on", b.dataset.mode === m));
+  $("boxKategori").classList.toggle("hidden", m === "guru");
+  $("boxJudul").classList.toggle("hidden", m === "guru");
+  $("boxGuru").classList.toggle("hidden", m !== "guru");
+  $("headTxt").textContent = T.kartu;
+  $("lblPesan").textContent = T.label;
+  $("pesan").placeholder = T.ph;
+  $("contohJudul").textContent = T.contoh;
+  $("contohList").innerHTML = T.daftar.map(t => `<li>“${t}”</li>`).join("");
+  $("notif").className = "msg hidden";
+  cekLangsung();
+}
+document.querySelectorAll("#mode button").forEach(b => b.addEventListener("click", () => setMode(b.dataset.mode)));
 
 /* ---------- Filter kata kasar & barang terlarang ---------- */
 const F = C.FILTER || {};
@@ -396,17 +469,17 @@ function pesanFilter(b){
     ? `Ada kata kasar di tulisanmu ("${sensor(b.kata)}"). Tolong pakai bahasa yang sopan ya 🙏`
     : `Ada kata terlarang di tulisanmu ("${sensor(b.kata)}"). Kalau mau melapor hal serius seperti narkoba atau judi, sampaikan langsung ke guru BK atau pengurus OSIS ya.`;
 }
+const semuaTeks = () => [$("nama").value, $("guru").value, $("mapel").value, $("judul").value, $("pesan").value].join(" \n ");
 let tHint;
 function cekLangsung(){
   clearTimeout(tHint);
   tHint = setTimeout(() => {
-    const b = cekFilter([$("nama").value, $("judul").value, $("pesan").value].join(" \n "));
+    const b = cekFilter(semuaTeks());
     const h = $("hint");
     if (b){ h.textContent = pesanFilter(b); h.classList.remove("hidden"); } else h.classList.add("hidden");
   }, 300);
 }
-["nama","judul","pesan"].forEach(id => $(id).addEventListener("input", cekLangsung));
-
+["nama","guru","mapel","judul","pesan"].forEach(id => $(id).addEventListener("input", cekLangsung));
 
 /* ---------- Kirim ---------- */
 function show(type, text){
@@ -416,37 +489,44 @@ $("aspForm").addEventListener("submit", async e => {
   e.preventDefault();
   if ($("website").value) return;
   const anon = $("anon").checked;
+  const guru = mode === "guru";
   const data = {
-    kategori: $("kategori").value,
+    jenis: mode,
+    kategori: guru ? "Kritik Guru" : $("kategori").value,
+    guru: guru ? $("guru").value.trim() : "",
+    mapel: guru ? $("mapel").value.trim() : "",
     nama: anon ? "" : $("nama").value.trim(),
     kelas: anon ? "" : $("kelas").value,
-    judul: $("judul").value.trim(),
+    judul: guru ? "" : $("judul").value.trim(),
     pesan: $("pesan").value.trim(),
     anonim: anon
   };
-  if (!data.kategori) return show("err", "Pilih kategori dulu ya.");
+  if (!guru && !data.kategori) return show("err", "Pilih kategori dulu ya.");
+  if (guru && data.guru.length < 2) return show("err", "Isi nama gurunya dulu ya.");
   if (!anon && !data.nama) return show("err", "Isi nama, atau centang kirim sebagai anonim.");
   if (!anon && !data.kelas) return show("err", "Pilih kelas kamu dulu ya.");
   if (data.pesan.length < 10) return show("err", "Isi pesan minimal 10 karakter.");
-  const bad = cekFilter([data.nama, data.judul, data.pesan].join(" \n "));
+  const bad = cekFilter(semuaTeks());
   if (bad) return show("err", pesanFilter(bad));
-  if (C.API_URL.startsWith("PASTE")) return show("err", "Admin belum mengisi API_URL di config.js.");
+  if (!API || API.startsWith("PASTE")) return show("err", "Admin belum mengisi API_URL di file api.js.");
 
   $("btn").disabled = true; $("btnTxt").textContent = "Mengirim...";
   try{
-    await fetch(C.API_URL, {
+    await fetch(API, {
       method: "POST", mode: "no-cors",
       headers: {"Content-Type": "text/plain;charset=utf-8"},
       body: JSON.stringify(data)
     });
-    show("ok", "Terima kasih! Aspirasimu sudah terkirim ke OSIS. 🎉");
-    $("aspForm").reset(); $("cnt").textContent = 0; $("identitas").classList.remove("hidden");
+    show("ok", MODE[mode].sukses);
+    $("aspForm").reset(); $("cnt").textContent = 0; $("identitas").classList.remove("hidden"); $("hint").classList.add("hidden");
   }catch(err){
     show("err", "Gagal mengirim. Cek koneksi internet lalu coba lagi.");
   }finally{
     $("btn").disabled = false; $("btnTxt").textContent = "Kirim Pesan";
   }
 });
+
+setMode("aspirasi");
 </script>
 </body>
 </html>

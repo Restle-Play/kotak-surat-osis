@@ -4,129 +4,255 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Panel OSIS — Respon Aspirasi</title>
+<title>Panel OSIS — Respon Siswa</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📮%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0b2a6b;--blue:#0d4fd6;--line:#d6e0f5;--bg:#f3f7ff}
+:root{--navy:#0b2a6b;--blue:#0d4fd6;--line:#d6e0f5;--bg:#f3f7ff;--orange:#c2410c;--orange-l:#ffedd5}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Poppins',sans-serif;background:var(--bg);color:#14213d;min-height:100vh}
 .top{background:var(--navy);color:#fff;padding:18px 5vw;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .top h1{font-size:20px;font-weight:600}
 .top a{color:#cfe0ff;font-size:14px;text-decoration:none}
 .wrap{padding:24px 5vw 50px;max-width:1200px;margin:auto}
-.login{max-width:380px;margin:12vh auto;background:#fff;padding:32px;border-radius:20px;box-shadow:0 14px 36px rgba(13,60,160,.15)}
+.hidden{display:none!important}
+
+.login{max-width:380px;margin:10vh auto;background:#fff;padding:32px;border-radius:20px;box-shadow:0 14px 36px rgba(13,60,160,.15)}
 .login h2{margin-bottom:6px;color:var(--navy)}
 .login p{font-size:14px;color:#6b7896;margin-bottom:18px}
+.login input{width:100%;margin-bottom:14px}
+.login button{width:100%}
+.err{color:#b42318;font-size:13px;margin-top:10px;line-height:1.5}
+
 input,select{font:inherit;font-size:14px;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;outline:none;background:#fff}
 input:focus,select:focus{border-color:var(--blue)}
-.login input{width:100%;margin-bottom:14px}
 button{font:inherit;font-weight:600;font-size:14px;cursor:pointer;border:0;border-radius:10px;padding:11px 18px;background:var(--blue);color:#fff}
 button.sec{background:#e1ebff;color:var(--navy)}
-.login button{width:100%}
-.err{color:#b42318;font-size:13px;margin-top:10px}
-.bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
+
+.tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;align-items:center}
+.tabs .sp{flex:1}
+.tabs button.tab{background:#fff;color:var(--navy);border:1.5px solid var(--line);padding:11px 20px}
+.tabs button.tab b{display:inline-block;margin-left:6px;min-width:24px;padding:1px 8px;border-radius:99px;background:#e1ebff;font-size:12px}
+.tabs button.tab.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.tabs button.tab.on b{background:rgba(255,255,255,.28)}
+.tabs button.tab.guru.on{background:var(--orange);border-color:var(--orange)}
+
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
 .bar input{flex:1;min-width:200px}
-.stats{display:flex;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.stats{display:flex;gap:14px;margin-bottom:16px;flex-wrap:wrap}
 .stat{background:#fff;border-radius:14px;padding:14px 20px;box-shadow:0 6px 16px rgba(13,60,160,.07)}
 .stat b{display:block;font-size:24px;color:var(--navy)}
 .stat span{font-size:12px;color:#6b7896}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chip{background:#fff;color:var(--orange);border:1.5px solid #fdba74;padding:7px 14px;border-radius:99px;font-size:13px}
+.chip.on{background:var(--orange);color:#fff;border-color:var(--orange)}
+
 .list{display:grid;gap:14px}
 .item{background:#fff;border-radius:16px;padding:18px 22px;box-shadow:0 6px 16px rgba(13,60,160,.07)}
+.item.guru{border-left:5px solid var(--orange)}
 .item .h{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}
 .tag{display:inline-block;background:#e1ebff;color:var(--navy);font-size:12px;font-weight:600;padding:4px 12px;border-radius:99px}
+.tag.g{background:var(--orange-l);color:var(--orange)}
 .time{font-size:12px;color:#8793ad}
 .item h4{font-size:16px;margin-bottom:6px}
+.item .mp{font-size:13px;color:#6b7896;margin-bottom:6px}
 .item p{font-size:14px;line-height:1.6;white-space:pre-wrap;color:#33415f}
 .who{margin-top:10px;font-size:13px;font-weight:600;color:var(--navy)}
 .who.anon{color:#8793ad;font-weight:500}
 .empty{text-align:center;color:#8793ad;padding:40px}
-.hidden{display:none}
 </style>
 </head>
 <body>
-<div class="top"><h1>📮 Panel OSIS — Respon Aspirasi</h1><a href="index.html">← Ke halaman form</a></div>
+<div class="top"><h1>📮 Panel OSIS — Respon Siswa</h1><a href="index.html">← Ke halaman form</a></div>
 
 <div id="loginBox" class="login">
   <h2>Khusus Pengurus OSIS</h2>
-  <p>Masukkan kunci akses untuk melihat aspirasi siswa.</p>
-  <input type="password" id="key" placeholder="Kunci akses">
+  <p>Masukkan kunci akses untuk melihat aspirasi dan kritik dari siswa.</p>
+  <input type="password" id="key" placeholder="Kunci akses" autocomplete="current-password">
   <button id="loginBtn">Masuk</button>
   <div id="loginErr" class="err"></div>
 </div>
 
 <div id="app" class="wrap hidden">
-  <div class="stats">
-    <div class="stat"><b id="sTotal">0</b><span>Total pesan</span></div>
-    <div class="stat"><b id="sNama">0</b><span>Dengan nama</span></div>
-    <div class="stat"><b id="sAnon">0</b><span>Anonim</span></div>
-  </div>
-  <div class="bar">
-    <input id="q" placeholder="Cari nama, kelas, atau isi pesan...">
-    <select id="fk"><option value="">Semua kategori</option></select>
+  <div class="tabs">
+    <button class="tab on" id="tabAsp">📮 Aspirasi <b id="cAsp">0</b></button>
+    <button class="tab guru" id="tabGuru">🎓 Kritik Guru <b id="cGuru">0</b></button>
+    <span class="sp"></span>
     <button class="sec" id="refresh">Muat ulang</button>
-    <button class="sec" id="csv">Unduh CSV</button>
     <button class="sec" id="logout">Keluar</button>
   </div>
-  <div id="list" class="list"></div>
+
+  <!-- ===== TAB ASPIRASI ===== -->
+  <section id="paneAsp">
+    <div class="stats">
+      <div class="stat"><b id="aTotal">0</b><span>Total pesan</span></div>
+      <div class="stat"><b id="aNama">0</b><span>Dengan nama</span></div>
+      <div class="stat"><b id="aAnon">0</b><span>Anonim</span></div>
+    </div>
+    <div class="bar">
+      <input id="aQ" placeholder="Cari nama, kelas, atau isi pesan...">
+      <select id="aKat"><option value="">Semua kategori</option></select>
+      <button class="sec" id="aCsv">Unduh CSV</button>
+    </div>
+    <div id="aList" class="list"></div>
+  </section>
+
+  <!-- ===== TAB KRITIK GURU ===== -->
+  <section id="paneGuru" class="hidden">
+    <div class="stats">
+      <div class="stat"><b id="gTotal">0</b><span>Total kritik</span></div>
+      <div class="stat"><b id="gJumlah">0</b><span>Guru terkait</span></div>
+      <div class="stat"><b id="gAnon">0</b><span>Anonim</span></div>
+    </div>
+    <div class="chips" id="gChips"></div>
+    <div class="bar">
+      <input id="gQ" placeholder="Cari guru, mata pelajaran, kelas, atau isi kritik...">
+      <button class="sec" id="gCsv">Unduh CSV</button>
+    </div>
+    <div id="gList" class="list"></div>
+  </section>
 </div>
 
-<script src="config.js"></script>
+<script src="api.js"></script>
 <script>
 const $ = id => document.getElementById(id);
-let DATA = [];
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const API = window.API_URL || "";
+let DB = { aspirasi: [], guru: [] };
+let gFilter = "";
 
-async function load(key){
-  const r = await fetch(`${CONFIG.API_URL}?action=list&key=${encodeURIComponent(key)}`);
-  const j = await r.json();
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const gkey = s => String(s ?? "").toLowerCase().replace(/\s+/g, " ").trim();
+
+/* ---------- Ambil data ---------- */
+const PESAN = {
+  BELUM_API: "API_URL belum diisi. Buka file api.js lalu isi dengan URL Web App (berakhiran /exec), upload ulang, dan tekan Ctrl+F5.",
+  JARINGAN: "Tidak bisa terhubung ke server. Cek internet, dan pastikan API_URL benar serta deploy Web App diset 'Siapa saja' (Anyone).",
+  BUKAN_JSON: "Server membalas selain data. Pastikan API_URL benar (berakhiran /exec) dan deploy Web App diset 'Siapa saja' (Anyone).",
+  KODE_LAMA: "Server masih memakai Code.gs lama. Tempel Code.gs yang baru lalu Deploy → Kelola deployment → Edit → Versi baru → Deploy."
+};
+async function muat(key){
+  if (!API || API.startsWith("PASTE")) throw new Error("BELUM_API");
+  let r, j;
+  try { r = await fetch(`${API}?action=list&key=${encodeURIComponent(key)}`); }
+  catch(e){ throw new Error("JARINGAN"); }
+  try { j = await r.json(); } catch(e){ throw new Error("BUKAN_JSON"); }
   if (!j.ok) throw new Error(j.error || "Gagal");
-  return j.data;
+  if (!Array.isArray(j.aspirasi) || !Array.isArray(j.guru)) throw new Error("KODE_LAMA");
+  return j;
 }
-async function enter(key){
-  DATA = await load(key);
-  sessionStorage.setItem("osis_key", key);
-  $("loginBox").classList.add("hidden"); $("app").classList.remove("hidden");
-  const kats = [...new Set(DATA.map(d => d.kategori))];
-  $("fk").innerHTML = '<option value="">Semua kategori</option>' + kats.map(k => `<option>${esc(k)}</option>`).join("");
-  render();
+function pasang(j){
+  DB = { aspirasi: j.aspirasi, guru: j.guru };
+  const kats = [...new Set(DB.aspirasi.map(d => d.kategori).filter(Boolean))];
+  const pilih = $("aKat").value;
+  $("aKat").innerHTML = '<option value="">Semua kategori</option>' + kats.map(k => `<option>${esc(k)}</option>`).join("");
+  $("aKat").value = kats.includes(pilih) ? pilih : "";
+  if (gFilter && !DB.guru.some(d => gkey(d.guru) === gFilter)) gFilter = "";
+  renderAsp(); renderGuru();
 }
-function render(){
-  const q = $("q").value.toLowerCase(), fk = $("fk").value;
-  const rows = DATA.filter(d =>
+
+/* ---------- Tab Aspirasi ---------- */
+function renderAsp(){
+  const q = $("aQ").value.toLowerCase(), fk = $("aKat").value;
+  const rows = DB.aspirasi.filter(d =>
     (!fk || d.kategori === fk) &&
     (!q || [d.nama,d.kelas,d.judul,d.pesan,d.kategori].join(" ").toLowerCase().includes(q)));
-  const anonCount = DATA.filter(d => d.anonim === true || String(d.anonim) === "true").length;
-  $("sTotal").textContent = DATA.length;
-  $("sAnon").textContent = anonCount;
-  $("sNama").textContent = DATA.length - anonCount;
-  $("list").innerHTML = rows.length ? rows.map(d => {
-    const anon = !d.nama;
-    return `<div class="item">
+  const anon = DB.aspirasi.filter(d => d.anonim).length;
+  $("cAsp").textContent = DB.aspirasi.length;
+  $("aTotal").textContent = DB.aspirasi.length;
+  $("aAnon").textContent = anon;
+  $("aNama").textContent = DB.aspirasi.length - anon;
+  $("aList").innerHTML = rows.length ? rows.map(d => `
+    <div class="item">
       <div class="h"><span class="tag">${esc(d.kategori)}</span><span class="time">${esc(d.waktu)}</span></div>
       ${d.judul ? `<h4>${esc(d.judul)}</h4>` : ""}
       <p>${esc(d.pesan)}</p>
-      <div class="who ${anon ? "anon" : ""}">${anon ? "👤 Anonim" : `👤 ${esc(d.nama)} — Kelas ${esc(d.kelas)}`}</div>
-    </div>`;
-  }).join("") : '<div class="empty">Belum ada pesan.</div>';
+      <div class="who ${d.nama ? "" : "anon"}">${d.nama ? `👤 ${esc(d.nama)} — Kelas ${esc(d.kelas)}` : "👤 Anonim"}</div>
+    </div>`).join("") : '<div class="empty">Belum ada pesan.</div>';
+}
+
+/* ---------- Tab Kritik Guru ---------- */
+function renderGuru(){
+  const q = $("gQ").value.toLowerCase();
+  const grup = new Map();
+  DB.guru.forEach(d => {
+    const k = gkey(d.guru), g = grup.get(k) || { nama: d.guru, n: 0 };
+    g.n++; grup.set(k, g);
+  });
+  const rows = DB.guru.filter(d =>
+    (!gFilter || gkey(d.guru) === gFilter) &&
+    (!q || [d.guru,d.mapel,d.kelas,d.nama,d.pesan].join(" ").toLowerCase().includes(q)));
+  const anon = DB.guru.filter(d => d.anonim).length;
+  $("cGuru").textContent = DB.guru.length;
+  $("gTotal").textContent = DB.guru.length;
+  $("gJumlah").textContent = grup.size;
+  $("gAnon").textContent = anon;
+  const urut = [...grup.entries()].sort((a, b) => b[1].n - a[1].n);
+  $("gChips").innerHTML = urut.length
+    ? `<button class="chip ${gFilter ? "" : "on"}" data-k="">Semua (${DB.guru.length})</button>` +
+      urut.map(([k, g]) => `<button class="chip ${gFilter === k ? "on" : ""}" data-k="${esc(k)}">${esc(g.nama)} (${g.n})</button>`).join("")
+    : "";
+  $("gList").innerHTML = rows.length ? rows.map(d => `
+    <div class="item guru">
+      <div class="h"><span class="tag g">🎓 ${esc(d.guru)}</span><span class="time">${esc(d.waktu)}</span></div>
+      ${d.mapel ? `<div class="mp">Mata pelajaran: ${esc(d.mapel)}</div>` : ""}
+      <p>${esc(d.pesan)}</p>
+      <div class="who ${d.nama ? "" : "anon"}">${d.nama ? `👤 ${esc(d.nama)} — Kelas ${esc(d.kelas)}` : "👤 Anonim"}</div>
+    </div>`).join("") : '<div class="empty">Belum ada kritik untuk guru.</div>';
+}
+$("gChips").addEventListener("click", e => {
+  const b = e.target.closest("[data-k]"); if (!b) return;
+  gFilter = (b.dataset.k && b.dataset.k !== gFilter) ? b.dataset.k : "";
+  renderGuru();
+});
+
+/* ---------- Tab ---------- */
+function bukaTab(t){
+  const guru = t === "guru";
+  $("paneAsp").classList.toggle("hidden", guru);
+  $("paneGuru").classList.toggle("hidden", !guru);
+  $("tabAsp").classList.toggle("on", !guru);
+  $("tabGuru").classList.toggle("on", guru);
+}
+$("tabAsp").onclick = () => bukaTab("asp");
+$("tabGuru").onclick = () => bukaTab("guru");
+
+/* ---------- Login & tombol ---------- */
+async function masuk(key){
+  pasang(await muat(key));
+  sessionStorage.setItem("osis_key", key);
+  $("loginBox").classList.add("hidden"); $("app").classList.remove("hidden");
 }
 $("loginBtn").onclick = async () => {
   $("loginErr").textContent = "";
-  try { await enter($("key").value); }
-  catch(e){ $("loginErr").textContent = (e.message || "").startsWith("Terlalu") ? e.message : "Kunci salah atau server tidak bisa dihubungi."; }
+  $("loginBtn").disabled = true;
+  try { await masuk($("key").value); }
+  catch(e){ $("loginErr").textContent = PESAN[e.message] || e.message; }
+  finally { $("loginBtn").disabled = false; }
 };
 $("key").addEventListener("keydown", e => e.key === "Enter" && $("loginBtn").click());
-$("q").oninput = render; $("fk").onchange = render;
-$("refresh").onclick = async () => { DATA = await load(sessionStorage.getItem("osis_key")); render(); };
-$("logout").onclick = () => { sessionStorage.removeItem("osis_key"); location.reload(); };
-$("csv").onclick = () => {
-  const cols = ["waktu","kategori","nama","kelas","judul","pesan"];
-  const lines = [cols.join(",")].concat(DATA.map(d => cols.map(c => `"${String(d[c] ?? "").replace(/"/g,'""')}"`).join(",")));
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(new Blob(["\ufeff" + lines.join("\n")], {type:"text/csv"}));
-  a.download = "aspirasi-osis.csv"; a.click();
+$("aQ").oninput = renderAsp; $("aKat").onchange = renderAsp; $("gQ").oninput = renderGuru;
+$("refresh").onclick = async () => {
+  $("refresh").textContent = "Memuat...";
+  try { pasang(await muat(sessionStorage.getItem("osis_key") || "")); }
+  catch(e){ alert(PESAN[e.message] || e.message); }
+  $("refresh").textContent = "Muat ulang";
 };
-const saved = sessionStorage.getItem("osis_key");
-if (saved) enter(saved).catch(() => sessionStorage.removeItem("osis_key"));
+$("logout").onclick = () => { sessionStorage.removeItem("osis_key"); location.reload(); };
+
+function unduh(nama, kolom, judulKolom, data){
+  const q = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const baris = [judulKolom.map(q).join(",")].concat(data.map(d => kolom.map(c => q(d[c])).join(",")));
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob(["﻿" + baris.join("\n")], { type: "text/csv" }));
+  a.download = nama; a.click();
+}
+$("aCsv").onclick = () => unduh("aspirasi-osis.csv",
+  ["waktu","kategori","nama","kelas","judul","pesan"], ["Waktu","Kategori","Nama","Kelas","Judul","Pesan"], DB.aspirasi);
+$("gCsv").onclick = () => unduh("kritik-guru-osis.csv",
+  ["waktu","guru","mapel","kelas","nama","pesan"], ["Waktu","Guru","Mata Pelajaran","Kelas","Nama","Kritik & Saran"], DB.guru);
+
+const tersimpan = sessionStorage.getItem("osis_key");
+if (tersimpan) masuk(tersimpan).catch(() => sessionStorage.removeItem("osis_key"));
 </script>
 </body>
 </html>
